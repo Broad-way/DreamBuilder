@@ -18,4 +18,8 @@ public class TaskTag {
     @JoinColumn(name = "task_id")
     Task task;
     Boolean isValidate;
+
+    public TaskTag() {
+        this.isValidate = true;
+    }
 }

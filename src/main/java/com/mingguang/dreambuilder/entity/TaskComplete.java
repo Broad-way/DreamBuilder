@@ -23,5 +23,7 @@ public class TaskComplete {
     private Boolean appealed;
     private String commentText;
     private String pic;
-    private boolean isValidate = true;
+    private boolean isValidate;
+
+    public TaskComplete() { this.isValidate = true; }
 }

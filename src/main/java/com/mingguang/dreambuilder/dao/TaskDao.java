@@ -23,10 +23,8 @@ public interface TaskDao extends PagingAndSortingRepository<Task, Long>, CrudRep
     Page<Task> findByContent(@Param("content") String content,
                              Pageable pageable);
 
-    //not used in Service
-    @NonNull
     @Query("SELECT t FROM Task t WHERE t.isValidate = true AND t.id = :id")
-    Optional<Task> findById(@NonNull @Param("id") Long id);
+    Task findTaskById(@Param("id") Long id);
 
     @Query("SELECT t FROM Task t WHERE t.isValidate = true AND t.validateFrom <= :nowTime " +
             "AND t.validateUntil >= :nowTime")

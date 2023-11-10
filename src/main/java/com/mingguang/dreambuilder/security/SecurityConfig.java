@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> {
                     authorize
                             .antMatchers("/swagger-ui.html").permitAll()
-                            .requestMatchers(// 添加需要测试的接口路径
+                            .requestMatchers(// 添加需要测试的接口路径，正式使用时需要删除
                                     new AntPathRequestMatcher("/login"),
                                     new AntPathRequestMatcher("/static/**"),
                                     new AntPathRequestMatcher("/js/**"),

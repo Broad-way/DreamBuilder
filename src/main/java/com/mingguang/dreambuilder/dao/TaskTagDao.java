@@ -1,5 +1,6 @@
 package com.mingguang.dreambuilder.dao;
 
+import com.mingguang.dreambuilder.entity.Task;
 import com.mingguang.dreambuilder.entity.TaskTag;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
@@ -24,5 +25,6 @@ public interface TaskTagDao extends PagingAndSortingRepository<TaskTag,Long>, Cr
 
     @Query("SELECT t FROM TaskTag t WHERE t.isValidate = true AND t.tagName = :recommended AND t.visibleUser = :id")
     Page<TaskTag> findTaskTagRecommendedById(String recommended, Long id, Pageable pageable);
-    
+
+    boolean existsByTagNameAndTask(String tagName, Task task);
 }

@@ -1,5 +1,7 @@
 package com.mingguang.dreambuilder.dao;
 
+import com.mingguang.dreambuilder.entity.Child;
+import com.mingguang.dreambuilder.entity.Task;
 import com.mingguang.dreambuilder.entity.TaskComplete;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,4 +24,6 @@ public interface TaskCompleteDao extends PagingAndSortingRepository<TaskComplete
     @Query("SELECT t FROM TaskComplete t WHERE t.isValidate = true " +
             "AND t.volunteerId = :volunteerId AND t.passed is NULL")
     Page<TaskComplete> findByVolunteerIdAndNotPassed(Long volunteerId, Pageable pageable);
+
+    boolean existsByChildAndTaskAndVolunteerId(Child child, Task task, Long volunteerId);
 }
