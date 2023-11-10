@@ -1,0 +1,36 @@
+server:
+  port: 80
+  ssl:
+    key-store-password: 123456
+    key-password: 123456
+    key-store: classpath:keystore.jks
+    key-alias: tomcat
+  servlet:
+    session:
+      timeout: 1800
+jwt:
+  expiration: 86400000
+  secret: Kf+i9Qca/2QM1aJEX+/xRmtYXWx0n8kYC2aJyr3VTjE='
+wx:
+  RequestUrl: https://api.weixin.qq.com/sns/jscode2session
+  AppID: wxbfff9ce87f9d235d
+  AppScret: 7966bce34f527da8685df61da3a8dbe9
+spring:
+  session:
+    store-type: jdbc
+  datasource:
+    url:  jdbc:mysql://localhost:3306/data?useUnicode=true&characterEncoding=utf-8&use
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+  data:
+    web:
+      pageable:
+        default-page-size: 5
+        max-page-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
