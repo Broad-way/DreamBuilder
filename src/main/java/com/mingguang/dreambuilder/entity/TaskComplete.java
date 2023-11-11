@@ -11,7 +11,7 @@ public class TaskComplete {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "child_id",referencedColumnName = "id",nullable = false)
     private Child child;
     @OneToOne(optional = false)

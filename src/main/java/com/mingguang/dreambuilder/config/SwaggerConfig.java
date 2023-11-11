@@ -32,7 +32,6 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.mingguang.dreambuilder.controller"))
                 .paths(PathSelectors.any())
-                .build()
-                .pathMapping("/");
+                .build();
     }
 }

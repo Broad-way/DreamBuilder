@@ -16,6 +16,8 @@ import javax.annotation.Resource;
 public class TaskRecommendedService {
     @Resource
     private TaskTagDao taskTagDao;
+    @Resource
+    private TaskDao taskDao;
 
     private final String recommended = "推荐";
 
@@ -28,5 +30,10 @@ public class TaskRecommendedService {
         long defaultId = 1L;
         Long userId = (user == null)? defaultId : user.getId();
         return taskTagDao.findTaskTagRecommendedById(recommended, userId, pageable).map(TaskTag::getTask);
+    }
+
+    public void deleteTaskRecommended(Long taskId, String tagName){
+        Task task = taskDao.findTaskById(taskId);
+        taskTagDao.deleteByTaskAndTagNameAndVisibleUser(task, tagName, Utils.getUser());
     }
 }

@@ -1,5 +1,6 @@
 package com.mingguang.dreambuilder.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Child {
     @OneToOne
     private User user;
     @OneToOne
+    @JsonBackReference
     @JoinTable(name = "child_volunteer",
             joinColumns = @JoinColumn(name = "child_id"),
             inverseJoinColumns = @JoinColumn(name = "volunteer_id"))
@@ -24,4 +26,6 @@ public class Child {
     private String SchoolName;
     private String grade;
     private boolean isValidate;
+
+    public Child() { this.isValidate = true; }
 }

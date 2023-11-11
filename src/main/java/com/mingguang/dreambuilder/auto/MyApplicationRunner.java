@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 // run方法自动运行，所有的create*****Bean方法不会创建重复的实例
 // 保存至数据库内的所有entity的id的值由jpa自动生成，生成规则：从1开始，每次累加1
@@ -37,6 +39,7 @@ public class MyApplicationRunner implements ApplicationRunner {
     private User admin = new User();
     private Child child = new Child();
     private Volunteer volunteer = new Volunteer();
+    private List<Task> taskList = new ArrayList<>();
 
     public MyApplicationRunner(UserDao userDao) {
         this.userDao = userDao;
@@ -50,7 +53,9 @@ public class MyApplicationRunner implements ApplicationRunner {
             task.setPoint(point);
             task.setValidateFrom(Timestamp.valueOf(LocalDateTime.of(year1, 1, 1, 0, 0, 0, 0)));
             task.setValidateUntil(Timestamp.valueOf(LocalDateTime.of(year2, 1, 1, 0, 0, 0, 0)));
-            taskDao.save(task);
+            taskList.add(taskDao.save(task));
+        } else {
+            taskList.add(taskDao.findByName(name));
         }
     }
 
@@ -66,11 +71,12 @@ public class MyApplicationRunner implements ApplicationRunner {
         }
     }
 
-    public void createTaskCompleteBean(Long taskId){
-        Task task = taskDao.findTaskById(taskId);
-        if (!taskCompleteDao.existsByChildAndTaskAndVolunteerId(child, task, volunteer.getId())){
+    public void createTaskCompleteBean(Task task,int passType){
+        if (!taskCompleteDao.existsByTask(task)) {
             TaskComplete taskComplete = new TaskComplete();
             taskComplete.setTask(task);
+            if (passType == 0) taskComplete.setPassed(false);
+            if (passType == 1) taskComplete.setPassed(true);
             taskComplete.setChild(child);
             taskComplete.setVolunteerId(volunteer.getId());
             taskCompleteDao.save(taskComplete);
@@ -107,6 +113,7 @@ public class MyApplicationRunner implements ApplicationRunner {
         child = childDao.findByName(childName);
         volunteer = volunteerDao.findByName(volunteerName);
         if (child == null || volunteer == null){
+            System.out.println("Reset!!!");
             Child tempChild = new Child();
             Volunteer tempVolunteer = new Volunteer();
             tempChild.setName(childName);
@@ -144,8 +151,10 @@ public class MyApplicationRunner implements ApplicationRunner {
 
         System.out.println("TaskTags have loaded\n");
 
-        //createTaskCompleteBean(2L);
-        //createTaskCompleteBean(3L);
+        createTaskCompleteBean(taskList.get(1),-1);
+        createTaskCompleteBean(taskList.get(2),-1);
+        createTaskCompleteBean(taskList.get(0),1);
+        createTaskCompleteBean(taskList.get(3),0);
 
         System.out.println("TaskComplete have loaded\n");
     }

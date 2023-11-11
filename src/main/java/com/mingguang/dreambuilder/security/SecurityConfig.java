@@ -46,7 +46,7 @@ public class SecurityConfig {
         http.csrf().disable()//跨域检察关闭
                 .authorizeRequests(authorize -> {
                     authorize
-                            .antMatchers("/swagger-ui.html").permitAll()
+                            .antMatchers("/doc.html").permitAll()
                             .requestMatchers(// 添加需要测试的接口路径，正式使用时需要删除
                                     new AntPathRequestMatcher("/login"),
                                     new AntPathRequestMatcher("/static/**"),

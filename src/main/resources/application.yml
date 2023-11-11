@@ -28,9 +28,10 @@ spring:
       pageable:
         default-page-size: 5
         max-page-size: 10
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    static-path-pattern: /**
   jpa:
     hibernate:
       ddl-auto: update
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER

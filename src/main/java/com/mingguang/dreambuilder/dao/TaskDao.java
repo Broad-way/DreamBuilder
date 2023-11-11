@@ -1,6 +1,7 @@
 package com.mingguang.dreambuilder.dao;
 
 import com.mingguang.dreambuilder.entity.Task;
+import io.swagger.annotations.ApiModel;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,8 +12,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.sql.Timestamp;
-import java.util.Optional;
 
+@ApiModel(description = "Methods")
 @RepositoryRestResource
 public interface TaskDao extends PagingAndSortingRepository<Task, Long>, CrudRepository<Task, Long> {
     @Query("SELECT t FROM Task t WHERE t.isValidate = true")
@@ -34,6 +35,8 @@ public interface TaskDao extends PagingAndSortingRepository<Task, Long>, CrudRep
     Page<Task> findByPointRange(@Param("minPoint") int minPoint,
                                 @Param("maxPoint") int maxPoint,
                                 Pageable pageable);
+
+    Task findByName(String name);
 
     boolean existsByName(String name);
 }

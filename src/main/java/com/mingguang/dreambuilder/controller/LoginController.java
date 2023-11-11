@@ -11,15 +11,17 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/login")
 @Api(tags = "登录控制类")
 public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/api/login/wx")
+    @PostMapping("/wx")
     @ApiOperation(value = "微信登录")
     public ApiResponse<LoginSuccessResp> WxLogin(@ApiParam(name = "WxLoginReq", value = "登录请求所需数据，包括code,rawdata,signature")
                                                      @RequestBody WxLoginReq wxLoginReq){

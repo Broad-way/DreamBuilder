@@ -31,4 +31,11 @@ public class TaskRecommendedController {
     public Page<Task> getAllTaskRecommendedById(@ApiParam(name = "pageable",value = "分页信息，只需要传入两个参数  page:需要获取的页号  size:以何大小进行分页") Pageable pageable) {
         return taskRecommendedService.getTaskRecommendedById(pageable);
     }
+
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "根据tagName删除推荐任务", notes = "根据标签名删除推荐任务")
+    public void deleteTaskRecommendedByTagName(@ApiParam(name = "id", value = "任务id") @RequestParam("id") Long taskID) {
+        taskRecommendedService.deleteTaskRecommended(taskID,"推荐");
+    }
+
 }
